@@ -1,0 +1,24 @@
+int Solution::hammingDistance(const vector<int> &A) {
+    
+    vector<int> bits(32,0);
+    
+    for(int i=0;i<A.size();i++)
+    {
+        int n = A[i];
+        int index = 0;
+        while(n>0)
+        {
+            bits[index] += n&1;
+            n >>= 1;
+            index++;
+        }
+        
+    }
+    int ans=0;
+    for(int i=0;i<32;i++)
+    {
+        ans = (ans+2*bits[i]*(A.size()-bits[i]))%1000000007;
+    }
+    return ans;
+    
+}

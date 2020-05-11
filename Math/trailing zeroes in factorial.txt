@@ -1,0 +1,12 @@
+int Solution::trailingZeroes(int n) {
+ 
+   int ans=0,i=1;        
+        //n/5^1 + n/5^2 + n/5^3
+        
+        while(n/pow(5,i)>0)
+        {
+            ans += n/pow(5,i);
+            i++;
+        }
+        return ans;
+}

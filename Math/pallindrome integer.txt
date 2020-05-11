@@ -1,0 +1,12 @@
+int Solution::isPalindrome(int A) {
+    
+    if(A<0)
+    return 0;
+    
+    string s = to_string(A);
+    string c = s;
+    reverse(s.begin(),s.end());
+    
+    return c==s;
+    
+}
