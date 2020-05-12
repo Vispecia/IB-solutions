@@ -1,0 +1,11 @@
+int Solution::cpFact(int A, int B) {
+    int ans=1;
+    for(int i=B;i>=1;i--)
+    {
+        if(A%i==0 && __gcd(B,i)==1)
+        {
+            return i;
+        }
+    }
+    return ans;
+}
