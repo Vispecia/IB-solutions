@@ -1,0 +1,35 @@
+vector<int> Solution::plusOne(vector<int> &a) {
+
+    if(a.size()==1 && a[0]==0)
+    return {1};
+
+    vector<int> digits;
+    int i=0;
+    for(;i<a.size();i++)
+    if(a[i]!=0)
+    break;
+    
+    for(int j=i;j<a.size();j++)
+    digits.push_back(a[j]);
+    
+    if(digits[digits.size()-1] + 1 <=9)
+    {
+        digits[digits.size()-1] += 1;
+        return digits;
+    }
+    
+    int r=1;
+    
+    for(i=digits.size()-1;i>=0;i--)
+    {
+        digits[i] = (digits[i]+r);
+        r = digits[i]/10;
+        digits[i] %= 10;
+    }
+    
+    if(r)
+    digits.insert(digits.begin(),r);
+    
+    return digits;
+
+}
