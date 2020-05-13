@@ -1,0 +1,70 @@
+vector<int> Solution::flip(string s) {
+    
+    vector<int> ans(2);
+    
+    /*int ones = 0;
+    int zeroes = 0;
+    for(char c : s)
+    if(c=='1')
+    ones++;
+    else
+    zeroes++;
+
+    int mx=ones;
+    int n = s.size();
+    
+    for(int i=0;i<n;i++)
+    {
+        int o=0,z=0;
+        for(int j=i;j<n;j++)
+        {
+            if(s[j]=='1')
+            o++;
+            else
+            z++;
+            
+            if(mx < ones-o+z)
+            {
+                ans.clear();
+                mx = ones-o+z;
+                ans.push_back(i+1);
+                ans.push_back(j+1);
+            }
+        }
+    }*/
+    
+    
+    int n=s.size();
+    int diff=0,cur_mx = INT_MIN,l=0,left,right;
+    int cum=0;
+    int i=0;
+    for(int i=0;i<n;i++)
+    {
+        if(s[i]=='1')
+        cum -=1;
+        else
+        cum += 1;
+        
+        if(cum < 0)
+        {
+            l=i+1;
+            cum=0;
+        }
+        else if(cum > cur_mx)
+        {
+            cur_mx = cum;
+            right=i;
+            left = l;
+        }
+    }
+    if(cur_mx<=0)
+    return {};
+    
+    else
+    {
+        ans[0]=left+1;
+        ans[1]=right+1;
+        return ans;
+    }
+    
+}

@@ -1,0 +1,49 @@
+#define ll long long
+
+vector<int> Solution::maxset(vector<int> &A) {
+    
+    vector<int> ans;
+    ll cur_sum=0;
+    ll sum=0;
+    int left = 0, right=-1, l=-1;
+    int ct=0,mp=0;
+    for(int i=0;i<A.size();i++)
+    {
+        if(A[i]>=0)
+        {
+            cur_sum += A[i];
+            ct++;
+            if(cur_sum > sum)
+            {
+                sum = cur_sum;
+                right = i;
+                l = left; 
+            }
+            else if(cur_sum==sum && ct>mp)
+            {
+                mp = ct;
+                right = i;
+                l = left; 
+            }
+            
+            
+        }
+        else
+        {
+            cur_sum=0;
+            left = i+1;
+            ct=0;
+        }
+        
+    }
+    
+    if(l==-1)
+    return {};
+    
+    else
+    {
+    for(int i=l;i<=right;i++)
+    ans.push_back(A[i]);
+    return ans;
+    }
+}
