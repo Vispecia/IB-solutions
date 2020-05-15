@@ -1,0 +1,29 @@
+bool Solution::hotel(vector<int> &arrive, vector<int> &depart, int K) {
+    
+    if(K >= arrive.size())
+    return 1;
+    
+    vector<pair<int,int>> a;
+    
+    for(int i=0;i<arrive.size();i++)
+    {
+        a.push_back({arrive[i],1});
+        a.push_back({depart[i],0});
+    }
+    
+    sort(a.begin(),a.end());
+
+    int active=0,mx=0;
+    for(int i=0;i<a.size();i++)
+    {
+        if(a[i].second==1)
+        {
+            active++;
+            mx = max(mx,active);
+        }
+        else
+        active--;
+        
+    }
+    return K>=mx;
+}

@@ -1,0 +1,27 @@
+
+string Solution::largestNumber(const vector<int> &a) {
+    
+    vector<int> A = a;
+    
+    sort(A.begin(),A.end(),[](int a,int b){
+        string s1 = to_string(a)+to_string(b);
+        string s2 = to_string(b)+to_string(a);
+        
+        if(s1>=s2)
+        return true;
+        else
+        return false;
+    });
+    
+    
+    string ans="";
+    for(int i : A)
+    {
+        ans += to_string(i);
+    }
+    
+    if(ans[0]=='0')
+    return "0";
+    
+    return ans;
+}

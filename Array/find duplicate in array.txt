@@ -1,0 +1,12 @@
+int Solution::repeatedNumber(const vector<int> &A) {
+    
+   vector<int> ct(A.size()+1,0);
+    
+    for(int i=0;i<A.size();i++)
+    {
+        ct[A[i]]++;
+        if(ct[A[i]]>=2)
+        return A[i];
+    }
+    return -1;
+}
