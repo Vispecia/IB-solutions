@@ -1,0 +1,29 @@
+void reverse(vector<int>& A)
+{
+    for(int i=0,j=A.size()-1;i<A.size()/2;i++,j--)
+    swap(A[i],A[j]);
+}
+
+
+void Solution::rotate(vector<vector<int> > &A) {
+    
+    vector<vector<int>> B(A.size(),vector<int>(A.size()));
+    
+    for(int i=0;i<A.size();i++)
+    {
+        for(int j=0;j<A.size();j++)
+        {
+            B[j][i] =  A[i][j];
+        }
+    }
+    
+    
+    // for(int i=0;i<A.size();i++)
+    // for(int j=0;j<A[i].size();j++)
+    // cout<<A[i][j]<<" ";
+    
+    A = B;
+    
+    for(int i=0;i<A.size();i++)
+    reverse(A[i]);
+}
