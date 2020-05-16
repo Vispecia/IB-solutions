@@ -1,0 +1,66 @@
+#define mod 1000000007
+ 
+long long int power(long long int a,long long int b)
+{
+    if(a==0)
+    return 0;
+    if(b==0)
+    return 1;
+    if(b==1)
+    return a;
+    
+    long res;
+    if(b%2==0)
+    {
+        res = power(a,b/2);
+        res = (res*res)%mod;
+    }
+    else
+    {
+        res = a%mod;
+        res = (res%mod*power(a,b-1)%mod)%mod;
+    }
+    return res%mod;
+}
+ 
+ 
+int Solution::solve(int A, vector<int> &B) {
+    
+    sort(B.begin(),B.end());
+    
+    long long fact[10001];
+    fact[0]=1;
+    
+    for(int i=1;i<10001;i++)
+    fact[i] = (i*fact[i-1])%mod;
+    
+    vector<long long> chunks;
+    chunks.push_back(B[0]-1);
+    
+    int total = 0;
+    
+    for(int i=1;i<B.size();i++)
+    {
+        chunks.push_back(B[i]-B[i-1] -1);
+    }
+    
+    chunks.push_back(A - B[B.size()-1]);
+    
+    int ans = 1;
+    int pro = 1;
+    for(int i=0;i<chunks.size();i++)
+    {
+        if(chunks[i]==0)continue;
+        if(i!=0 && i!=chunks.size()-1)
+        ans = (ans*power(2,chunks[i]-1))%mod;
+         total = (total + chunks[i])%mod;
+        pro = (pro*fact[chunks[i]])%mod;
+    }
+    
+    ans = (ans*fact[total])%mod;
+    ans = (ans*power(pro,mod-2))%mod;
+    
+    return ans;
+    
+   
+}
