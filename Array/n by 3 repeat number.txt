@@ -1,0 +1,57 @@
+int Solution::repeatedNumber(const vector<int> &nums) {
+   
+   int first=NULL,second=NULL;
+   int c1=0,c2=0;
+   for(int i=0;i<nums.size();i++)
+   {
+       if(first==NULL || nums[i]==first)
+       {
+           first = nums[i];
+           c1++;
+       }
+       else if(second==NULL || nums[i]==second)
+       {
+           second = nums[i];
+           c2++;
+       }
+       else if(c1==0)
+       {
+           first = nums[i];
+           c1++;
+       }
+       else if(c2==0)
+       {
+           second = nums[i];
+           c2++;
+       }
+       else
+       {
+           c1--;
+           c2--;
+       }
+       
+   }
+   
+   c1=0;
+   c2=0;
+   
+   
+   for(int i=0;i<nums.size();i++)
+   {
+       if(first!=NULL && first==nums[i])
+       {
+           c1++;
+           if(c1 > nums.size()/3)
+           return first;
+       }
+       else if(second!=NULL && second==nums[i])
+       {
+           c2++;
+           if(c2 > nums.size()/3)
+           return second;
+       }
+   }
+   
+   return -1;
+   
+}
