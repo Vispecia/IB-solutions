@@ -1,0 +1,56 @@
+bool solve(int limit,vector<int> &A,int B)
+{
+    int sum=0;
+    int ct=1;
+    for(int i=0;i<A.size();i++)
+    {
+        if(A[i]>limit)
+        return false;
+        
+        if(sum+A[i]>limit)
+        {
+            ct++;
+            sum = A[i];
+            
+            if(ct>B)
+            return false;
+        }
+        else
+        sum += A[i];
+    }
+    
+    return true;
+}
+
+int Solution::books(vector<int> &A, int B) {
+    
+    int mn = 1;
+    int mx=0;
+    
+    for(int i:A)
+    mx += i;
+    
+    int ans=-1;
+    
+    while(mn<=mx)
+    {
+        int mid = (mx+mn)/2;
+        
+        bool t = solve(mid,A,B);
+        
+        if(t)
+        {
+           
+            ans = mid;
+             //cout<<ans<<" ";
+            mx = mid-1;
+        }
+        else
+        {
+            mn = mid+1;
+        }
+    }
+    
+    
+    return ans;
+}
