@@ -1,0 +1,14 @@
+int Solution::solve(string A) {
+    
+    transform(A.begin(),A.end(),A.begin(),::tolower);
+    int mod = 10003;
+    int ct=0;
+    for(int i=0;i<A.size();i++)
+    {
+        if(A[i]=='a' || A[i]=='e' || A[i]=='i' || A[i]=='o' || A[i]=='u')
+        {
+            ct = (ct%mod + (A.size()-i)%mod)%mod;
+        }
+    }
+    return ct%mod;
+}
