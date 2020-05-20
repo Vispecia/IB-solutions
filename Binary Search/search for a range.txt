@@ -1,0 +1,26 @@
+vector<int> Solution::searchRange(const vector<int> &A, int B) {
+    
+    if(A[0]==B && A[A.size()-1]==B)
+    return {0,(int)A.size()-1};
+    
+    
+    int f=0;
+    
+    if(find(A.begin(),A.end(),B)!=A.end())
+    f=1;
+    
+    if(!f)
+    return {-1,-1};
+    
+    
+    int l=0,h=A.size()-1;
+    
+    int lr=0,rr=0;
+    
+    lr = lower_bound(A.begin(),A.end(),B) - A.begin();
+    rr = upper_bound(A.begin(),A.end(),B) - A.begin();
+    
+
+    return {lr,rr-1};
+    
+}

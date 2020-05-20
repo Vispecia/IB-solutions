@@ -1,0 +1,37 @@
+#define ll long long
+
+ll power(ll x,ll n,ll d)
+{
+    if(x==1 || n==0)
+    return 1;
+    if(x==0)
+    return 0;
+    
+    if(n==1)
+    return x;
+    
+    
+    ll ans=1;
+    
+    if(n&1)
+    {
+        ans = x%d;
+        ans = (ans*power(x,n-1,d)%d)%d;
+    }
+    else
+    {
+        ans = (power(x,n/2,d)%d*power(x,n/2,d)%d)%d;
+    }
+    return ans;
+}
+
+
+int Solution::pow(int x, int n, int d) {
+
+    ll p = power(x,n,d);
+    
+    
+    return (p+d)%d;
+    
+    
+}

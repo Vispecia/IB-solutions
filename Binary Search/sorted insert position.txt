@@ -1,0 +1,27 @@
+int Solution::searchInsert(vector<int> &A, int B) {
+    
+    int l = 0, h = A.size()-1;
+    int poss=0;
+    while(l<=h)
+    {
+        int mid = (l+h)/2;
+        
+        if(A[mid]==B)
+        return mid;
+        
+        if(A[mid]<B)
+        {
+            poss = mid+1;
+            l = mid+1;
+        }
+        
+        else
+        {
+            h = mid-1;
+            poss = mid;
+        }
+           
+    }
+    
+    return poss;
+}

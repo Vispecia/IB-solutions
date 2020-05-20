@@ -1,0 +1,47 @@
+int solve(int limit,vector<int> &C,int count)
+{
+    int i=0;
+    while(i<C.size() && count>0)
+    {
+        count--;
+        int sum=0; 
+        while(i<C.size() && sum+C[i]<=limit)
+        sum+=C[i++];
+    }
+    if(i!=C.size())
+    return INT_MAX;
+    else
+    return 1;
+    
+}
+
+
+int Solution::paint(int A, int B, vector<int> &C) {
+    
+    int mn = *max_element(C.begin(),C.end());
+    int mx=0;
+    for(int i : C)
+    mx += i;
+
+    long long board=0;
+    while(mn<=mx)
+    {
+        int mid = mn + (mx-mn)/2;
+        
+        int t = solve(mid,C,A);
+        
+        if(t==1)
+        {
+            board = mid;
+            mx = mid-1;
+        }
+        
+        else
+        {
+            mn = mid+1;
+        }
+        
+    }
+    return ((board%10000003)*(B%10000003))%10000003;
+    
+}
