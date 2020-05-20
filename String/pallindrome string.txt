@@ -1,0 +1,24 @@
+int Solution::isPalindrome(string A) {
+    
+    transform(A.begin(), A.end(), A.begin(), ::toupper); 
+    
+    int i=0,j=A.size()-1;
+    while(j>i && (A[j]<65 || A[j]>=91) && (A[j]<48 || A[j]>57))
+    j--;
+    
+    for(;i<j;i++)
+    {
+        if(A[i]>=65 && A[i]<91)
+        {
+            
+            if(A[i]!=A[j])
+            return 0;
+            
+            j--;
+            while(j>i && A[j]<65 || A[j]>=91 && (A[j]<48 || A[j]>57))
+            j--;
+            
+        }
+    }
+    return 1;
+}

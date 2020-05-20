@@ -1,0 +1,57 @@
+struct Trie{
+    map<char,Trie*> childrens;
+    bool isEnd;
+    Trie() {     }
+};
+
+
+void insert(string s,Trie* root)
+{
+    Trie* crawl = root;
+    
+    for(char i : s)
+    {
+        if(crawl->childrens.find(i)==crawl->childrens.end())
+        crawl->childrens[i] = new Trie();
+        
+        crawl = crawl->childrens[i];
+    }
+    
+    crawl->isEnd=true;
+}
+
+string longestPrefix(Trie* root,int minSize)
+{
+    if(root->childrens.size()>1)
+    return "";
+    string res="";
+    while(root->childrens.size()==1 && res.size()<minSize)
+    {
+        auto i = root->childrens.begin();
+        res += i->first;
+        root = root->childrens[i->first];
+    }
+    
+    return res;
+}
+
+
+
+string Solution::longestCommonPrefix(vector<string> &A) {
+    
+    Trie* root = new Trie();
+    
+    for(string s:A)
+    insert(s,root);
+    
+    
+    int mn = INT_MAX;
+    for(string s :A)
+    if(mn>s.size())
+    mn = s.size();
+    
+    
+    
+    return longestPrefix(root,mn);
+    
+}
