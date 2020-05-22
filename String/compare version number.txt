@@ -1,0 +1,56 @@
+int Solution::compareVersion(string A, string B) {
+        
+    string tok1,tok2;
+    stringstream ss(A);
+    stringstream tt(B);
+    vector<string> arr1,arr2;
+    while(getline(ss,tok1,'.'))
+    {
+        arr1.push_back(tok1);
+    }
+    while(getline(tt,tok2,'.'))
+    {
+        arr2.push_back(tok2);
+    }
+    
+    
+    
+    int i;
+    for(i=0;i<min(arr1.size(),arr2.size());i++)
+    {
+        string a = arr1[i],b = arr2[i];
+        
+        int j=0,k=0;
+        
+        while(a[j]=='0')
+        j++;
+        
+        while(b[k]=='0')
+        k++;
+        
+        if(a.substr(j,a.size()).size() > b.substr(k,b.size()).size())
+        return 1;
+        
+         if(a.substr(j,a.size()).size() < b.substr(k,b.size()).size())
+        return -1;
+        
+        while(j<a.size() && k<b.size())
+        {
+            if(a[j]<b[k])
+            return -1;
+            if(a[j]>b[k])
+            return 1;
+            
+            j++,k++;
+        }
+        
+        
+        
+    }
+    
+    if(arr1.size()<arr2.size())
+    return -1;
+    
+    //cout<<"hii"<<" ";
+    return 0;
+}

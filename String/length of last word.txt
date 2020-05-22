@@ -1,0 +1,37 @@
+int Solution::lengthOfLastWord(const string A) {
+    
+    string a=A;
+    
+    
+    int i=0;
+    while(isspace(a[i]))
+    i++;
+    
+    a = a.substr(i,a.size());
+    
+    i = a.size()-1;
+    
+    while(isspace(a[i]))
+    {
+        i--;
+        a.pop_back();
+    }
+    
+    //cout<<a<<" ";
+    stringstream ss(a);
+    string tok;
+    int ct=0;
+    
+    string last;
+    
+    while(getline(ss,tok,' '))
+    {
+        last = tok;
+        ct++;
+    }
+
+    if(ct==0)
+    return 0;
+ 
+    return last.size();
+}
