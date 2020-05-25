@@ -1,0 +1,38 @@
+string Solution::multiply(string A, string B) {
+
+    if(A.size()==1 && A[0]=='0' || B.size()==1 && B[0]=='0')
+    return "0";
+
+    vector<int> mul(A.size()+B.size());
+    
+    for(int i=A.size()-1;i>=0;i--)
+    {
+        int x = A[i] - '0';
+        for(int j=B.size()-1;j>=0;j--)
+        {
+            int y = B[j] - '0';
+            mul[i+j+1] += x*y;
+        }
+    }
+        
+        
+    int rem=0;
+    for(int i=mul.size()-1;i>0;i--)
+    {
+        rem = mul[i]/10;
+        mul[i]=mul[i]%10;
+        mul[i-1]+=rem;
+    }
+    
+    int i;
+    for(i=0;i<mul.size();i++)
+    if(mul[i]!=0)
+    break;
+    
+    string ans="";
+    for(int k=i;k<mul.size();k++)
+    ans += to_string(mul[k]);
+    
+    
+    return ans;
+}
