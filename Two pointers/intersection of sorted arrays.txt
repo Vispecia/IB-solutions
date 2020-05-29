@@ -1,0 +1,46 @@
+vector<int> Solution::intersect(const vector<int> &A, const vector<int> &B) {
+    
+    
+    // vector<int> ans;
+    // int i=0,j=0;
+    
+    // while(i<A.size() && j<B.size())
+    // {
+    //     if(A[i]==B[j])
+    //     {
+    //         ans.push_back(B[j]);
+    //         i++;
+    //         j++;
+    //     }
+    //     else if(A[i]<B[j])
+    //     {
+    //         i++;
+    //     }
+    //     else
+    //     j++;
+    // }
+    
+    // return ans;
+    
+    
+    unordered_map<int,int> ct1,ct2;
+    for(int i:A)
+    ct1[i]++;
+    for(int i:B)
+    ct2[i]++;
+    
+    vector<int> ans;
+    
+    for(auto i:ct2)
+    {
+        if(ct1[i.first])
+        {
+            int c = min(ct1[i.first],i.second);
+            while(c--)
+            ans.push_back(i.first);
+        }
+    }
+    
+    return ans;
+    
+}

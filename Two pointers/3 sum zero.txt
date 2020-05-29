@@ -1,0 +1,66 @@
+vector<vector<int> > Solution::threeSum(vector<int> &A) {
+    sort(A.begin(),A.end());
+    map<vector<int>,int> mp;
+    
+    vector<vector<int>> ans;
+    int n=A.size();
+    for(int i=0;i<n-2;i++)
+    {
+        int l=i+1;
+        int r=n-1;
+        
+        while(l<r)
+        {
+            long long sum = 0LL + A[i] +A[l] + A[r];
+            
+            if(sum<0)
+            l++;
+            else if(sum>0)
+            r--;
+            
+            else
+            {
+                vector<int> a;
+                a.push_back(A[i]);
+                a.push_back(A[l]);
+                a.push_back(A[r]);
+                if(mp.find(a)==mp.end())
+                {
+                    mp[a]=1;
+                    ans.push_back(a);
+                }
+                l++;
+                r--;
+            }
+        }
+    }
+    
+    
+    //map<int,int> mp;
+    // for(int i:A)
+    // mp[i]=1;
+    
+    // vector<vector<int>> ans;
+    // set<pair<int,pair<int,int>>> st;
+    // for(int i=0;i<A.size();i++)
+    // {
+    //     for(int j=0;j<A.size();j++)
+    //     {
+    //         if(i!=j && mp.find(-(A[i]+A[j]))!=mp.end())
+    //         {
+    //             vector<int> a{-(A[i]+A[j]),A[i],A[j]};
+    //             sort(a.begin(),a.end());
+                
+                
+                
+    //             st.insert({a[0],{a[1],a[2]}});
+    //         }
+    //     }
+    // }
+    
+    // for(auto i: st)
+    // ans.push_back({i.first,i.second.first,i.second.second});
+    
+ 
+    return ans;
+}
