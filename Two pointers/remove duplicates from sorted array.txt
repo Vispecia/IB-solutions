@@ -1,0 +1,26 @@
+int Solution::removeDuplicates(vector<int> &A) {
+   
+//   auto i = unique(A.begin(),A.end());
+//   A.resize(distance(A.begin(),i));
+//   return A.size();
+
+    int i=1;
+    int prev=A[0];
+    int j=i;
+    while(i<A.size())
+    {
+        while(i<A.size() && A[i]==prev)
+        i++;
+        if(i<A.size())
+        {
+            A[j]=A[i];
+            j++;
+            prev=A[i];
+        }
+        else
+        break;
+    }
+
+    A.resize(distance(A.begin(),A.begin()+j));
+    return A.size();
+}
