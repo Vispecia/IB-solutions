@@ -1,0 +1,62 @@
+vector<int> Solution::maxone(vector<int> &A, int B) {
+    
+    vector<int> ans;
+    /*int mx = INT_MIN;
+    for(int i=0;i<A.size();i++)
+    {
+        int k=B;
+        int ct=0;
+        int j;
+        for(j=i;j<A.size();j++)
+        {
+            if(A[j]!=1 && k>0)
+            k--;
+            else if(A[j]!=1 && k<=0) break;
+            
+            ct++;
+        }
+        
+        if(mx < ct)
+        {
+            mx = ct;
+            ans.clear();
+            for(int l=i;l<j;l++)
+            ans.push_back(l);
+        }
+    }*/
+    int i=0,j=0,no_of_zero=0;
+    pair<int,int> ind;
+    int mx = INT_MIN;
+    while(j<A.size())
+    {
+        if(no_of_zero<=B)
+        {
+            if(A[j]==0)
+            no_of_zero++;
+            
+            j++;
+        }
+        
+        if(no_of_zero>B)
+        {
+            if(A[i]==0)
+            --no_of_zero;
+            i++;
+        }
+        
+        if(j-i+1 > mx)
+        {
+            mx = j-i+1;
+            ind.first=i;
+            ind.second=j;
+        }
+        
+        
+    }
+    
+    for(i=ind.first;i<ind.second;i++)
+    ans.push_back(i);
+    
+    
+    return ans;
+}

@@ -1,0 +1,15 @@
+void Solution::sortColors(vector<int> &A) {
+    
+    int j=0;
+    for(int i=0;i<3;i++)
+    {
+        for(int k=j;k<A.size();k++)
+        {
+            if(A[k]==i)
+            {
+                swap(A[j++],A[k]);
+            }
+        }
+    }
+    
+}
