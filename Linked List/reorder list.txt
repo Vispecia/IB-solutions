@@ -1,0 +1,105 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ 
+ListNode* reverse(ListNode* cur)
+{
+    ListNode* prev = NULL;
+    while(cur)
+    {
+        ListNode* temp = cur->next;
+        cur->next = prev;
+        prev = cur;
+        cur = temp;
+    }
+    return prev;
+}
+ 
+ 
+ListNode* clone(ListNode* cur)
+{
+    if(!cur)return NULL;
+    
+    ListNode* list = new ListNode(cur->val);
+    list->next=clone(cur->next);
+    return list;
+}
+ 
+ 
+ListNode* Solution::reorderList(ListNode* head) {
+    
+    
+    int sz=0;
+    ListNode* temp=head;
+    
+    while(temp)
+    {
+        temp=temp->next;
+        sz++;
+    }
+    
+    if(sz==1)
+    return head;
+    
+    
+    int odd=0;
+    
+    if(sz&1^1)
+    sz=sz/2;
+    else
+    {
+        odd=1;
+        sz=sz/2+1;
+    }
+    
+    
+    ListNode* copy = clone(head);
+    
+    ListNode* rev = reverse(copy);
+    
+    ListNode* prev=NULL;
+    ListNode* f=head;
+    ListNode* s=rev;
+    
+    
+    while(sz-->0)
+    {
+        temp = f->next;
+        
+        if(!prev)
+        {
+            f->next = s;
+            prev=s;
+            s=s->next;
+            f=temp;
+        }
+        else
+        {
+            ListNode* sTemp = s->next;
+            prev->next = f;
+            
+            if(odd && sz==0)
+            {
+                prev = f;
+                break;
+            }
+             else{   
+                f->next = s;
+                prev = s;
+                s = sTemp;
+                f = temp;
+            }
+        }
+        
+    }
+    
+    prev->next=NULL;
+    
+    
+    return head;
+}
