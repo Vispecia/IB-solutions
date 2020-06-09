@@ -1,0 +1,40 @@
+vector<int> stk,mn;
+
+MinStack::MinStack() {
+    stk.clear();
+    mn.clear();
+}
+
+void MinStack::push(int x) {
+    
+    if(mn.size()!=0)
+    {
+        if(mn.back()>x)
+        mn.emplace_back(x);
+    }
+    else
+    mn.emplace_back(x);
+    
+    stk.push_back(x);
+    
+}
+
+void MinStack::pop() {
+    
+    if(mn.size() && mn.back()==stk.back())
+    mn.pop_back();
+    
+    if(stk.size())
+    stk.pop_back();
+    
+}
+
+int MinStack::top() {
+    
+    return stk.size() ? stk.back() : -1;
+}
+
+int MinStack::getMin() {
+    return mn.size() ? mn.back() : -1;
+}
+
