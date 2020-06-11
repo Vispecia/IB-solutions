@@ -1,0 +1,30 @@
+vector<int> Solution::slidingMaximum(const vector<int> &nums, int k) {
+    vector<int> res;
+        deque<int> d(k);
+        
+        int i;
+        for(i=0;i<k;i++)
+        {
+            while(!d.empty() and nums[i] > nums[d.back()])
+                d.pop_back();
+            d.push_back(i);
+        }
+        
+        for(;i<nums.size();i++)
+        {
+            res.push_back(nums[d.front()]);
+            
+            while(!d.empty() and nums[i] > nums[d.back()])
+                d.pop_back();
+            
+            while(!d.empty() and d.front() <= i-k)
+                d.pop_front();
+            
+            d.push_back(i);
+        }
+        res.push_back(nums[d.front()]);
+        
+        return res;
+    
+    
+}
