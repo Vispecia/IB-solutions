@@ -1,0 +1,98 @@
+vector<vector<string>> ans;
+ 
+ 
+bool safe(vector<vector<int>> board,int i,int j,int n){
+    
+    for(int r=0;r<i;r++)
+    if(board[r][j]==1)
+    return false;
+    
+    
+    int x=i,y=j;
+    
+    
+    while(x>=0 && y>=0)
+    {
+        if(board[x][y]==1)
+        return false;
+        
+        x--;
+        y--;
+    }
+    
+    x=i;
+    y=j;
+    
+    
+    while(x>=0 && y<n)
+    {
+        if(board[x][y]==1)
+        return false;
+        
+        x--;
+        y++;
+    }
+    
+    
+    
+    
+    return true;
+}    
+
+
+bool solve(vector<vector<int>> board,int i,int n)
+{
+    if(i==n)
+    {
+        vector<string> poss;
+        for(int r=0;r<n;r++)
+        {
+            string a="";
+            for(int c=0;c<n;c++)
+            {
+                if(board[r][c]==1)
+                a+="Q";
+                else
+                a+=".";
+            }
+            
+            poss.push_back(a);
+        }
+        
+        ans.push_back(poss);
+        
+        return false;
+    }
+    
+    
+    for(int j=0;j<n;j++)
+    {
+        if(safe(board,i,j,n))
+        {
+            board[i][j]=1;
+            
+            
+            bool next = solve(board,i+1,n);
+            
+            if(next)
+            return true;
+            
+            board[i][j]=0;
+            
+        }
+    }
+    
+    return false;
+}
+
+
+
+vector<vector<string> > Solution::solveNQueens(int A) {
+    
+    ans.clear();
+    vector<vector<int>> board(A,vector<int>(A,0));
+    
+    solve(board,0,A);
+    
+    return ans;
+}

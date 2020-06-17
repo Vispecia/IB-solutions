@@ -1,0 +1,35 @@
+vector<vector<int>> ans;
+
+void filter( vector<int>& arr,int n,int k)
+{
+    int i=0;
+     vector<int> a;
+    while(n)
+    {
+        if(n&1)
+        a.push_back(arr[i]);
+        
+        i++;
+        n >>=1;
+    }
+    
+    if(a.size()==k)
+    ans.push_back(a);
+    
+}
+
+
+vector<vector<int> > Solution::combine(int A, int B) {
+    
+    ans.clear();
+    
+    vector<int> arr;
+    for(int i=1;i<=A;i++) arr.push_back(i);
+    
+   for(int i=0;i<(1<<A);i++)
+   filter(arr,i,B);
+   
+   sort(ans.begin(),ans.end());
+   
+   return ans;
+}

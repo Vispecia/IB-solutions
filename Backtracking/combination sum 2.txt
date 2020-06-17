@@ -1,0 +1,71 @@
+vector<vector<int>> ans;
+vector<int> solve(vector<int> &A, int target,int n,vector<int> data)
+{
+    if(n==0 && target>0)
+    return {};
+    
+    if(n==0 && target==0)
+    return data;
+    
+    if(n>0 && target==0)
+    return data;
+    
+    
+    if(A[n-1]<=target)
+    {
+        vector<int> p = data;
+        p.emplace_back(A[n-1]);
+        
+        vector<int> l = solve(A,target-A[n-1],n-1,p);
+        vector<int> r = solve(A,target,n-1,data);
+        
+        
+        if(l.size())
+        ans.push_back(l);
+        if(r.size())
+        ans.push_back(r);
+        
+        
+        return l,r;
+        
+    }
+    else
+    {
+        vector<int> r = solve(A,target,n-1,data);
+        
+        if(r.size())
+        ans.push_back(r);
+        
+        return r;
+    }
+    
+    
+    
+}
+
+vector<vector<int> > Solution::combinationSum(vector<int> &A, int B) {
+    
+    ans.clear();
+    sort(A.begin(),A.end(),greater<int>());
+    
+    //unique(A.begin(),A.end());
+    
+    solve(A,B,A.size(),{});
+    
+    map<vector<int>,bool> uni;
+    vector<vector<int>> filtered;
+    
+    for(auto i : ans)
+    {
+        if(!uni[i] && i.size())
+        {
+            filtered.push_back(i);
+            uni[i]=true;
+        }
+    }
+    
+    
+    
+    return filtered;
+    
+}

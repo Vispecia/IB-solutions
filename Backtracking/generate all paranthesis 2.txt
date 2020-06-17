@@ -1,0 +1,58 @@
+vector<string> ans;
+
+void solve(int n,int open,int close,string d)
+{
+    if(n==0 && (open>close || close>open))
+    return;
+    
+    if(n==0 && open==close)
+    {
+        ans.push_back(d);
+        return;
+    }
+   
+    string o = d +"(";
+    string c = d +")";
+    solve(n-1,open+1,close,o);
+    solve(n-1,open,close+1,c);
+    
+}
+
+
+vector<string> Solution::generateParenthesis(int A) {
+    
+    ans.clear();
+    
+    solve(2*A-1,1,0,"(");
+    
+    sort(ans.begin(),ans.end());
+    
+    
+    vector<string> filtered;
+    
+    for(string s : ans)
+    {
+        int ct=0;
+        int flag=0;
+        for(char c:s)
+        {
+            if(c=='(')
+            ct++;
+            if(c==')')
+            ct--;
+            if(ct<0)
+            {
+                flag=1;
+                break;
+            }
+        
+        }
+        
+        if(!flag)
+        filtered.emplace_back(s);
+        
+    }
+    
+    
+    return filtered;
+}

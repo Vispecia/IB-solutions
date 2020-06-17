@@ -1,0 +1,43 @@
+string subset;
+vector<string> res;
+unordered_map<char,string> mp;
+
+void backtrack(string digits,int start)
+    {
+        if(subset.size()>digits.size())
+            return;
+        
+        if(digits.size()==subset.size())
+            res.emplace_back(subset);
+        
+        for(auto c:mp[digits[start]])
+        {
+            subset.push_back(c);
+            backtrack(digits,start+1);
+            subset.pop_back();
+        }
+        
+    }
+
+vector<string> Solution::letterCombinations(string A) {
+    
+    subset.clear();
+    res.clear();
+ 
+    
+    mp['1']="1";
+    mp['0']="0";
+    mp['2']="abc";
+    mp['3']="def";
+    mp['4']="ghi";
+    mp['5']="jkl";
+    mp['6']="mno";
+    mp['7']="pqrs";
+    mp['8']="tuv";
+    mp['9']="wxyz";
+    
+    backtrack(A,0);
+    
+    return res;
+    
+}

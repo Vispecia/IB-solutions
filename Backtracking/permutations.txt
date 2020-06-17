@@ -1,0 +1,29 @@
+vector<vector<int>> ans;
+
+void solve(vector<int> A,int l,int r)
+{
+    if(l==r)
+    {
+        ans.push_back(A);
+        return;
+    }
+    
+    for(int i=l;i<=r;i++)
+    {
+        swap(A[l],A[i]);
+        
+        solve(A,l+1,r);
+        
+        swap(A[l],A[i]);
+        
+    }
+    
+    
+}
+
+vector<vector<int> > Solution::permute(vector<int> &A) {
+    ans.clear();
+    solve(A,0,A.size()-1);
+   
+    return ans;
+}

@@ -1,0 +1,50 @@
+
+// check whether in the same row
+bool isInRow(vector<vector<char>> &board, int i, char c) {
+    for (int k = 0; k < 9; k++)
+        if (board[i][k] == c) return true;
+    return false;
+}
+
+// check whether in the same column
+bool isInCol(vector<vector<char>> &board, int j, char c) {
+    for (int k = 0; k < 9; k++)
+        if (board[k][j] == c) return true;
+    return false;
+}
+
+// check whether in the same box
+bool isInBox(vector<vector<char>> &board, int i, int j, char c) {
+    int boxRow = i / 3, boxCol = j / 3;
+    for (int m = 3 * boxRow; m < 3 * (boxRow + 1); m++)
+        for (int n = 3 * boxCol; n < 3 * (boxCol + 1); n++)
+            if (board[m][n] == c) return true;
+    return false;
+}
+
+bool doSolve(vector<vector<char>>& board, int pos) {
+    if (pos >= 81) return true;
+    int i = pos / 9, j = pos % 9;
+    
+    if (board[i][j] != '.') 
+        return doSolve(board, pos + 1);
+    else {
+        for (char c = '1'; c <= '9'; c++) { 
+            if (!isInRow(board, i,c) && !isInCol(board, j, c) && !isInBox(board, i, j, c)) {
+                board[i][j] = c;
+                if (doSolve(board, pos + 1)) return true;
+                else board[i][j] = '.';
+            }
+        }
+        return false;
+    }
+}
+
+void Solution::solveSudoku(vector<vector<char> > &A) {
+
+
+    doSolve(A,0);
+    
+    
+    
+}
