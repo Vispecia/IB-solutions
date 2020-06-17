@@ -1,0 +1,30 @@
+vector<vector<int>> ans;
+
+void filter(vector<int> &A,int n)
+{
+    int i=0;
+    vector<int> a;
+    while(n)
+    {
+        if(n&1)
+        a.push_back(A[i]);
+        
+        i++;
+        n >>=1;
+    }
+
+    
+    ans.push_back(a);
+}
+
+vector<vector<int> > Solution::subsets(vector<int> &A) {
+    
+    ans.clear();
+    sort(A.begin(),A.end());
+    for(int i=0;i<(1<<A.size());i++)
+    filter(A,i);
+    
+    sort(ans.begin(),ans.end());
+    
+    return ans;
+}
