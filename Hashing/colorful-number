@@ -1,0 +1,30 @@
+int Solution::colorful(int A) {
+    
+    
+    
+    string n = to_string(A);
+    vector<int> nums(n.size());
+    for(int i=0;i<n.size();i++)
+    nums[i]=n[i]-'0';
+    
+    
+    unordered_map<int,int> mp;
+    
+    
+    for(int i=0;i<nums.size();i++)
+    {
+        int p=1;
+        for(int j=i;j<nums.size();j++)
+        {
+            p *= nums[j];
+            if(mp.find(p)!=mp.end())
+            return 0;
+            
+            mp[p]=1;
+        }
+    }
+    
+    
+    return 1;
+    
+}
