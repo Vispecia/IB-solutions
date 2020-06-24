@@ -1,0 +1,58 @@
+string Solution::minWindow(string A, string B) {
+    
+    if(A.size() < B.size())
+    return "";
+    
+    map<char,int> mp,ct;
+    int count=0;
+    for(char c:B)
+    {
+        count++;
+        mp[c]++;
+    }
+    
+    int len=INT_MAX;
+    string ans="";
+    
+    int l=0,r=0,k=0;
+    
+    while(r<A.size())
+    {
+        if(mp[A[r]]==0)
+        {
+            r++;
+            continue;
+        }
+        
+        ct[A[r]]++;
+        
+        if(mp[A[r]]>=ct[A[r]])
+        {
+            k++;
+        }
+        
+        
+       if(count==k)
+       {
+           
+           while(ct[A[l]]==0 || (ct[A[l]] > mp[A[l]]))
+           {
+               if(ct[A[l]] > mp[A[l]])
+               ct[A[l]]--;
+               
+               l++;
+           }
+           
+            if(len > r-l+1)
+            {
+                len = r-l+1;
+                ans = A.substr(l,r-l+1);
+            }
+       }
+        r++;
+        
+    }
+    
+    
+    return ans;
+}

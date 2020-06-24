@@ -1,0 +1,41 @@
+int Solution::maxPoints(vector<int> &A, vector<int> &B) {
+    
+    
+    if(A.size()==1)
+    return 1;
+    
+    
+    map<pair<int,int>,int> mp;
+    int mx = 0;
+    for(int i=0;i<A.size();i++)
+    {
+        mp.clear();
+        int same = 1, cur_max=0;
+        
+        for(int j=i+1;j<A.size();j++)
+        {
+            
+            int y = B[j]-B[i];
+            int x = A[j]-A[i];
+            
+            
+            if(x==0 && y==0)
+            {
+                //same point
+                same++;
+            }
+            else {
+                int g = __gcd(x,y);
+                mp[{x/g,y/g}]++;
+                
+                cur_max = max(cur_max,mp[{x/g,y/g}]);
+                
+            }
+        }
+        
+        cur_max+=same;
+        mx = max(mx,cur_max);
+    }
+
+    return mx;
+}

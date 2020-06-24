@@ -1,0 +1,30 @@
+int Solution::isValidSudoku(const vector<string> &A) {
+    
+    
+    map<char,vector<pair<int,int>>> mp;
+    
+    for(int i=0;i<A.size();i++)
+    {
+        for(int j=0;j<A[i].size();j++)
+        {
+            if(A[i][j]!='.' && mp.find(A[i][j])!=mp.end())
+            {
+                for(auto k : mp[A[i][j]])
+                {
+                    int r = k.first;
+                    int c = k.second;
+                    
+                    if(r*c/9 == ((i+1)*(j+1))/9)
+                    return 0;
+                }
+                
+                mp[A[i][j]].push_back({i+1,j+1});                
+                
+            }
+            else if(A[i][j]!='.')
+            mp[A[i][j]].push_back({i+1,j+1});
+        }
+    }
+    
+    return 1;
+}

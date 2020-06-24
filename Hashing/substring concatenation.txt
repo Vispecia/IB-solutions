@@ -1,0 +1,37 @@
+vector<int> Solution::findSubstring(string A, const vector<string> &B) {
+    
+    unordered_map<string,int> mp;
+    for(string s : B)
+    mp[s]++;
+    
+    int sz = B[0].size();
+    
+    vector<int> ans;
+    
+    for(int i=0;i<A.size();i++)
+    {
+        int ct=0;
+        
+        string s = A.substr(i,sz);
+        unordered_map<string,int> vis = mp;
+        if(mp[s])
+        {
+            vis[s]--;
+            ct=1;
+            int j = i+sz;
+            while(vis[A.substr(j,sz)] && ct<B.size())
+            {
+                vis[A.substr(j,sz)]--;
+                ct++;
+                j +=sz;
+            }
+            
+            if(ct==B.size())
+            {
+                ans.push_back(i);
+            }
+        }
+        
+    }
+ return ans;   
+}

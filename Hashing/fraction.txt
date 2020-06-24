@@ -1,0 +1,45 @@
+string Solution::fractionToDecimal(int A, int B) {
+    
+     long long num = A;
+        long long deno = B;
+        if(num==0) return "0";
+        bool isNeg = false;
+        if(num<0 && deno<0){
+            num=abs(num);
+            deno=abs(deno);
+        }
+        else if(num<0) {
+            isNeg = true;
+            num = abs(num);
+        }
+        else if(deno<0) {
+            isNeg = true;
+            deno = abs(deno);
+        }
+        long long q = num/deno;
+        string ans = to_string(q);
+        long long rem = num%deno;
+        if(rem==0) {
+            if(isNeg) return "-"+ans;
+            return ans;
+        }
+        unordered_map<int,int> m;
+        m[rem]=0;
+        int count = 1;
+        string str = "";
+        while(rem!=0) {
+            rem = rem* 10;
+            q = rem/deno;
+            str+=to_string(q);
+            rem=rem%deno;
+            if(m.find(rem)!=m.end()){
+                str = str.substr(0,m[rem]) + "(" + str.substr(m[rem]) + ")";
+                break;
+            }
+            m[rem]=count;
+            count++;
+        }
+        if(isNeg) return "-"+ans+"."+str;
+        return ans+"."+str;
+    
+}

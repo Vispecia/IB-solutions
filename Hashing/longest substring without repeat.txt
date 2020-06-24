@@ -1,0 +1,27 @@
+int Solution::lengthOfLongestSubstring(string A) {
+    
+    unordered_map<char,int> ct;
+    
+    int l=0,r=0;
+    int window = INT_MIN;
+    while(r<A.size())
+    {
+        ct[A[r]]++;
+        
+        if(ct[A[r]]>1)
+        {
+            while(ct[A[r]]>1)
+            ct[A[l++]]--;
+        }
+        
+        
+        if(r-l+1 > window)
+        {
+            window = r-l+1;
+        }
+        
+        r++;
+    }
+    
+    return window;
+}

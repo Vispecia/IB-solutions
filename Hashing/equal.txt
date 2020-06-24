@@ -1,0 +1,41 @@
+vector<int> Solution::equal(vector<int> &A) {
+    
+    map<int,pair<int,int>> mp;
+    vector<int> ans(4,INT_MAX);
+  
+    
+    for(int i=0;i<A.size();i++)
+    {
+        for(int j=i+1;j<A.size();j++)
+        {
+            int key = A[i]+A[j];
+            if(mp.find(key)==mp.end())
+            mp[key]=make_pair(i,j);
+            
+            else
+            {
+                int r = mp[key].first;
+                int c = mp[key].second;
+                
+                
+                if(r!=i && c!=j && r!=j && c!=i)
+                {
+                    if(ans[0]>r || (ans[1]>c && ans[0]==r) || 
+                    ((ans[2]>i && (ans[1]>c && ans[0]==r)))||
+                    ((ans[3]>j)&&((ans[2]>i && (ans[1]>c && ans[0]==r)))))
+                    {
+                        ans[0]=r;
+                        ans[1]=c;
+                        ans[2]=i;
+                        ans[3]=j;
+                    }
+                   
+                }
+                
+            }
+        }
+    }   
+    
+ return ans;   
+}
+                

@@ -1,0 +1,29 @@
+/**
+ * Definition for singly-linked list.
+ * struct RandomListNode {
+ *     int label;
+ *     RandomListNode *next, *random;
+ *     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
+ * };
+ */
+RandomListNode* Solution::copyRandomList(RandomListNode* A) {
+  
+    map<RandomListNode*, RandomListNode*> mp;
+        
+       RandomListNode* temp = A;
+        while (temp) {
+            mp[temp] = new RandomListNode(temp->label);
+            temp = temp->next;
+            
+        }
+        
+        temp = A;
+        while (temp) 
+        {
+            RandomListNode* new_node = mp[temp];
+            new_node->next = temp->next? mp[temp->next]: nullptr;
+            new_node->random = temp->random? mp[temp->random]: nullptr;
+            temp = temp->next;
+        }
+        return mp[A];
+}
