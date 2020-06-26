@@ -1,0 +1,45 @@
+vector<int> Solution::dNums(vector<int> &A, int B) {
+    
+    
+    if(B>A.size())
+    return {};
+
+    unordered_map<int,int> mp;
+    
+    vector<int> ans;
+    for(int i=0;i<B;i++)
+    {
+        mp[A[i]]++;
+    }
+    
+    ans.push_back(mp.size());
+    
+    int i=B;
+    int l=0;
+    
+    int ct=mp.size();
+    
+    while(i<A.size())
+    {
+        mp[A[l]]--;
+        
+        if(mp[A[l]]==0)
+        ct--;
+        
+        mp[A[i]]++;
+        
+        if(mp[A[i]]==1)
+        ct++;
+       
+        
+        
+        ans.push_back(ct);
+        i++;
+        l++;
+    }
+    
+    return ans;
+    
+    
+    
+}

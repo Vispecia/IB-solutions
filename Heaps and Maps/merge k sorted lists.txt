@@ -1,0 +1,97 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ 
+ ListNode* merge(ListNode* A,ListNode* B)
+ {
+     if(!A && !B)
+     return nullptr;
+     
+     if(!A) return B;
+     if(!B) return A;
+     
+     ListNode* s = A;
+     ListNode* f = B;
+     ListNode* ans = NULL;
+     ListNode* temp = ans;
+     while(s && f)
+     {
+         if(!ans)
+         {
+             if(s->val <= f->val)
+             {
+                ans = s;
+                temp = ans;
+                s = s->next;
+             }
+             
+             else
+             {
+                 ans = f;
+                 temp = ans;
+                 f = f->next;
+             }
+         }
+         
+         else
+         {
+             if(s->val <= f->val)
+             {
+                 temp->next = s;
+                 s = s->next;
+                 temp = temp->next;
+             }
+             else
+             {
+                 temp->next = f;
+                 f = f->next;
+                 temp = temp->next;
+             }
+             
+         }
+         
+     }
+     
+     
+     while(s)
+     {
+        temp->next = s;
+        s = s->next;
+        temp = temp->next;
+     }
+     
+     while(f)
+     {
+        temp->next = f;
+        f = f->next;
+        temp = temp->next;
+     }
+     
+     temp->next = NULL;
+     
+     return ans;
+ }
+ 
+ 
+ 
+ListNode* Solution::mergeKLists(vector<ListNode*> &A) {
+    
+    if(A.size()==0)
+    return nullptr;
+    
+    if(A.size()==1)
+    return A[0];
+    
+    
+    for(int i=0;i<A.size()-1;i++)
+    A[i+1] = merge(A[i],A[i+1]);
+    
+    return A[A.size()-1];
+    
+    
+}

@@ -1,0 +1,17 @@
+#define mod 1000000007
+int Solution::nchoc(int A, vector<int> &B) {
+    
+    priority_queue<int> q;
+    for(int i:B)
+    q.push(i);
+    
+    long long ans=0;
+    while(A--)
+    {
+        long long x = q.top();
+        ans = (ans%mod + x%mod)%mod;
+        q.pop();
+        q.push(floor(x/2));
+    }
+    return ans;
+}
