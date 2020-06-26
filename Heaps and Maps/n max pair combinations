@@ -1,0 +1,34 @@
+vector<int> Solution::solve(vector<int> &A, vector<int> &B) {
+    
+    priority_queue <vector<int>> q;
+    map<pair<int,int>,int> mp;
+    sort(A.begin(),A.end(),greater<int>());
+    sort(B.begin(),B.end(),greater<int>());
+    
+    q.push({A[0]+B[0],0,0});
+    vector<int> ans(A.size());
+    int i=0;
+    while(i<A.size())
+    {
+        ans[i++] = q.top()[0];
+        int x = q.top()[1];
+        int y = q.top()[2];
+        
+        q.pop();
+        
+        if(mp.find({x+1,y})==mp.end())
+        {
+            mp[{x+1,y}]=1;
+            q.push({A[x+1]+B[y],x+1,y});
+        }
+        
+        if(mp.find({x,y+1})==mp.end())
+        {
+            mp[{x,y+1}]=1;
+            q.push({A[x]+B[y+1],x,y+1});
+        }
+    }
+    
+   return ans; 
+    
+}
