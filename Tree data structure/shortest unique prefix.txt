@@ -1,0 +1,55 @@
+struct Trie{
+    map<char,Trie*> childrens;
+    bool isEnd=false;
+    int count=0;
+    Trie(){}
+};
+
+void insert(Trie* root,string s)
+{
+    Trie* crawl = root;
+    for(char c : s)
+    {
+        if(crawl->childrens.find(c)==crawl->childrens.end())
+        crawl->childrens[c] = new Trie();
+        
+        crawl->childrens[c]->count++;
+        crawl = crawl->childrens[c];
+    }
+    crawl->count++;
+    crawl->isEnd = true;
+}
+
+string search(Trie* root,string s)
+{
+    Trie* crawl = root;
+    string pre="";
+    for(char c:s)
+    {
+        pre += c;
+        if(crawl->childrens[c]->count==1)
+        return pre;
+        
+        crawl = crawl->childrens[c];
+    }
+    
+    return s;
+}
+
+vector<string> Solution::prefix(vector<string> &A) {
+    
+    Trie* root= new Trie();
+    
+    for(string s:A)
+    insert(root,s);
+    
+    
+    vector<string> ans(A.size());
+    
+   
+    for(int i=0;i<A.size();i++)
+    {
+        ans[i] = search(root,A[i]);
+    }
+    return ans;
+}

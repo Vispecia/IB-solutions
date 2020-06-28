@@ -1,0 +1,88 @@
+struct Trie{
+    map<char,Trie*> neighbours;
+    bool isEnd=false;
+    
+    Trie(){}
+};
+
+
+void insert(Trie* root,string s)
+{
+    Trie* crawl = root;
+    
+    for(char c:s)
+    {
+        if(crawl->neighbours.find(c)==crawl->neighbours.end())
+        crawl->neighbours[c] = new Trie();
+        
+        crawl = crawl->neighbours[c];
+    }
+    
+    crawl->isEnd = true;
+    
+}
+
+int search(Trie* root,string& s)
+{
+    Trie *crawl =  root;
+    for(char c:s)
+    {
+        if(crawl->neighbours.find(c)==crawl->neighbours.end())
+        return 0;
+        
+        crawl = crawl->neighbours[c];    
+    }
+    
+    return crawl->isEnd ? 1 : 0;
+}
+
+
+vector<int> Solution::solve(string A, vector<string> &B) {
+    
+    
+    Trie* root = new Trie();
+    
+    stringstream ss(A);
+    string tok;
+    
+    while(getline(ss,tok,'_'))
+    {
+        insert(root,tok);
+    }
+    
+    vector<pair<int,int>> ct(B.size());
+    
+    for(int i=0;i<B.size();i++)
+    {
+        stringstream ss(B[i]);
+        string tok;
+        int c=0;
+        while(getline(ss,tok,'_'))
+        {
+            c += search(root,tok);
+        }
+        
+        ct[i]=make_pair(c,i);
+    }
+    
+    sort(ct.begin(),ct.end(),[](pair<int,int>& a,pair<int,int>& b){
+       
+       if(a.first==b.first)
+       return a.second < b.second;
+       
+       return a.first > b.first;
+        
+    });
+    
+    vector<int> ans(B.size());
+    int j=0;
+    for(auto i : ct)
+    {
+        //cout<<i.first<<" "<<i.second<<", ";
+        ans[j++]=i.second;
+    }
+    
+    return ans;
+}
+
+

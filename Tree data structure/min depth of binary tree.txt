@@ -1,0 +1,33 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+int Solution::minDepth(TreeNode* A) {
+    if(!A)
+    return 0;
+    
+    
+    int ans=INT_MAX;
+    
+    queue<pair<TreeNode*,int>> q;
+    q.push({A,1});
+    
+    while(!q.empty())
+    {
+        auto a = q.front(); q.pop();
+        
+        if(a.first->left)
+        q.push({a.first->left,a.second+1});
+        if(a.first->right)
+        q.push({a.first->right,a.second+1});
+        
+        if(!a.first->left && !a.first->right)
+        ans = min(ans,a.second);
+    }
+    return ans;
+}

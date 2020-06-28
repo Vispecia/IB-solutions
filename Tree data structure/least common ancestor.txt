@@ -1,0 +1,72 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+int Solution::lca(TreeNode* A, int B, int C) {
+    
+    unordered_map<TreeNode*,TreeNode*> parent;
+    
+    queue<TreeNode*> q;
+    q.push(A);
+    
+    parent[A]=nullptr;
+    TreeNode* p=nullptr;
+    TreeNode* Q=nullptr;
+    while(!q.empty())
+    {
+        auto a = q.front();
+        q.pop();
+        
+        if(a->val==B)
+        {
+            p=a;
+        }
+        if(a->val==C)
+        {
+            Q=a;
+        }
+        
+        
+        if(a->left)
+        {
+            parent[a->left]=a;
+            q.push(a->left);
+        }
+        
+        if(a->right)
+        {
+            parent[a->right]=a;
+            q.push(a->right);
+        }
+        
+    }
+    
+    if(!p || !Q)
+    return -1;
+    
+    
+    unordered_map<int,int> vals;
+    
+    while(p)
+    {
+        vals[p->val]=1;
+        p = parent[p];
+    }
+    int i=0;
+    while(Q)
+    {
+        if(vals[Q->val])
+        return Q->val;
+        
+        Q=parent[Q];
+    }
+    
+    
+    
+    return -1;
+}

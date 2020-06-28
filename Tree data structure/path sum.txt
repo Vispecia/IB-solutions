@@ -1,0 +1,28 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ 
+int solve(TreeNode* root,int s,int k)
+{
+    if(!root)
+    return 0;
+    
+    s += root->val;
+
+    if(!root->left && !root->right)
+    return s==k;
+    
+    return solve(root->left,s,k) || solve(root->right,s,k);
+    
+    
+}
+ 
+int Solution::hasPathSum(TreeNode* A, int B) {
+    return solve(A,0,B);
+}

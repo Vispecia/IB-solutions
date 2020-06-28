@@ -1,0 +1,47 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+int Solution::isSameTree(TreeNode* A, TreeNode* B) {
+    
+    if(!A&&!B) return 1;
+    if(!A || !B) return 0;
+    
+    queue<pair<TreeNode*,TreeNode*>> q;
+    
+    q.push({A,B});
+    
+    while(!q.empty())
+    {
+        auto a = q.front(); q.pop();
+        
+        if(a.first->val!=a.second->val)
+        return 0;
+        
+        if(!a.first->left && a.second->left)
+        return 0;
+    
+        if(a.first->left && !a.second->left)
+        return 0;
+        
+        if(!a.first->right && a.second->right)
+        return 0;
+        
+        if(a.first->right && !a.second->right)
+        return 0;
+        
+        
+        if(a.first->left && a.second->left)
+        q.push({a.first->left,a.second->left});
+        
+        if(a.first->right && a.second->right)
+        q.push({a.first->right,a.second->right});
+        
+    }
+    return 1;
+}

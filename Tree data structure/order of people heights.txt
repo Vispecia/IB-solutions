@@ -1,0 +1,23 @@
+vector<int> Solution::order(vector<int> &A, vector<int> &B) {
+    
+    vector<pair<int,int>> vec;
+    for(int i=0;i<A.size();i++)
+    vec.push_back({A[i],B[i]});
+    
+    sort(vec.begin(),vec.end(),[](pair<int,int> a,pair<int,int> b){
+       if(a.first==b.first)
+       return a.second<b.second;
+       
+       return a.first>b.first;
+    });
+    
+    
+    A.clear();
+    
+    for(auto x:vec)
+    {
+        A.insert(A.begin()+x.second,x.first);
+    }
+        return A;
+}
+
