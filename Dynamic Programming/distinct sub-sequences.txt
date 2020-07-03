@@ -1,0 +1,22 @@
+int Solution::numDistinct(string A, string B) {
+    
+    if(A.size()<B.size()) return 0;
+    if(A.compare(B)==0) return 1;
+    
+    int n=A.size(),m=B.size();
+    vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+    
+    for(int i=0;i<=n;i++)
+    dp[i][0]=1;
+    
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=m;j++)
+        {
+            dp[i][j] = dp[i-1][j];
+            if(A[i-1]==B[j-1])
+            dp[i][j] += dp[i-1][j-1];
+        }
+    }
+    return dp[n][m];
+}

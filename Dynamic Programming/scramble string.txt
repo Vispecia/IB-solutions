@@ -1,0 +1,38 @@
+unordered_map<string,int> mp;
+bool solve(string A,string B)
+{
+    if(A.compare(B)==0) return true;
+    if(A.size()<=1) return false;
+    
+    string key = A+"_"+B;
+    if(mp.find(key)!=mp.end())
+    return mp[key];
+    
+    int n=A.size();
+    bool ans = false;
+    
+    for(int i=1;i<n;i++)
+    {
+        if(solve(A.substr(0,i),B.substr(n-i,i)) &&
+            solve(A.substr(i,n-i),B.substr(0,n-i)) ||
+           
+           solve(A.substr(0,i),B.substr(0,i)) &&
+            solve(A.substr(i,n-i),B.substr(i,n-i))
+            
+            )
+            
+            {
+                ans = true;
+                break;
+            }
+    }
+    
+    return mp[key]=ans;
+    
+}
+ 
+ 
+int Solution::isScramble(const string A, const string B) {
+    mp.clear();
+    return solve(A,B);
+}
